@@ -1,0 +1,23 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ ghActions ]
+  pull_request:
+    branches: [ ghActions ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+#   - name: Go to Ansible 2.7.0
+#     run: cd ./ansible270
+
+    - name: Build the Docker image
+      run: pushd ansible270 && docker build . --file Dockerfile --tag danielnbalasoiu/alpine-ansible:3.15-2.7.0-$(date +%s)
+
