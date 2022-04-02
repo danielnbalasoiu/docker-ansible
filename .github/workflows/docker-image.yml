@@ -17,7 +17,9 @@ jobs:
 
     - name: Build the Docker image
       working-directory: ./ansible270
-      run: docker build --tag danielnbalasoiu/alpine-ansible:3.15-2.7.0 .
+      run: |
+        ls -lh
+        docker build -t danielnbalasoiu/alpine-ansible:3.15-2.7.0 -f ./Dockerfile .
 
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
