@@ -15,9 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-#   - name: Go to Ansible 2.7.0
-#     run: cd ./ansible270
+    - name: Go to Ansible 2.7.0
+      run: cd ./ansible270
 
     - name: Build the Docker image
-      run: pushd ansible270 && docker build . --file Dockerfile --tag danielnbalasoiu/alpine-ansible:3.15-2.7.0-$(date +%s)
+      run: docker build . --file Dockerfile --tag danielnbalasoiu/alpine-ansible:3.15-2.7.0
 
+    - name: Build and Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v4
+      with:
+        image: danielnbalasoiu/alpine-ansible:3.15-2.7.0
+        registry: docker.io
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
